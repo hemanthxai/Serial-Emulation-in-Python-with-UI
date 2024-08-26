@@ -6,6 +6,8 @@ from pydantic import (
     validator,
 )
 
+# Custom Validator
+
 
 class User(BaseModel):
     id: int
@@ -19,38 +21,45 @@ class User(BaseModel):
         return value
 
 
+# Create an instance of User
 user = User(id=1, name="Hemanth", email="hsk@gmail.com")
+print("User:")
 print(user)
 
-
-# Using inbuilt Validators in Pydantic
+# Using built-in Validators in Pydantic
 
 
 class UserProfile(BaseModel):
-
     username: str
-
     age: PositiveInt
-
     salary: PositiveInt
-
     email: EmailStr
-
     gitwebsite: AnyUrl
-
     bio: str
+    profile_picture: AnyUrl = None  # Optional field with default value of None
 
-    profile_picture: AnyUrl
+    # Custom validator for 'bio' to ensure it is at least 10 characters long
+    @validator("bio")
+    def validate_bio(cls, value):
+        if len(value) < 10:
+            raise ValueError("Bio must be at least 10 characters long")
+        return value
 
 
+# Create an instance of UserProfile
 newuser = UserProfile(
     username="Hemanth",
     age=21,
     salary=1000,
-    debt=0.0,
     email="user@example.com",
     gitwebsite="https://e.com",
-    bio="IoT Python developer",
+    bio="IoT Python developer specializing in data validation",
     profile_picture="https://github.com/hemanthxai/TechnoCulture-Research/",
 )
+print("\nUserProfile:")
 print(newuser)
+
+# JSON Serialization
+user_json = newuser.json()
+print("\nSerialized JSON:")
+print(user_json)
