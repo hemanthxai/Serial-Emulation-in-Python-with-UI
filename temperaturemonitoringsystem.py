@@ -1,36 +1,41 @@
 from pydantic import BaseModel, EmailStr, AnyUrl, PositiveInt, validator
 from dataclasses import dataclass
+from typing import Optional, Tuple
 import imgui
 from imgui.integrations.glfw import GlfwRenderer
 import glfw
 import random
 import time
+import argparse
+from enum import Enum
 
 
-# custom exceptions
+# Custom exceptions
 class TemperatureError(Exception):
     pass
 
 
 # Custom validator function
-def validate_temperature(temp):
+def validate_temperature(temp: float) -> float:
     if temp > 100 or temp < -100:
         raise TemperatureError(f"Temperature {temp} must be between -100°C and 100°C")
     return temp
 
 
+# User Model
 class User(BaseModel):
     id: int
     name: str
     email: EmailStr
 
     @validator("id")
-    def validate_id(cls, value):
+    def validate_id(cls, value: int) -> int:
         if value < 0:
             raise ValueError("ID value must be greater than 0")
         return value
 
 
+# User Profile Model
 class UserProfile(BaseModel):
     username: str
     age: PositiveInt
@@ -38,28 +43,16 @@ class UserProfile(BaseModel):
     email: EmailStr
     gitwebsite: AnyUrl
     bio: str
-    profile_picture: AnyUrl = None  #
+    profile_picture: Optional[AnyUrl] = None
 
     @validator("bio")
-    def validate_bio(cls, value):
+    def validate_bio(cls, value: str) -> str:
         if len(value) < 10:
             raise ValueError("Bio must be at least 10 characters long")
         return value
 
 
-user = User(id=1, name="Hemanth", email="hsk@gmail.com")
-newuser = UserProfile(
-    username="Hemanth",
-    age=21,
-    salary=1000,
-    email="user@example.com",
-    gitwebsite="https://e.com",
-    bio="IoT Python developer",
-    profile_picture="https://github.com/hemanthxai/TechnoCulture-Research/",
-)
-
-
-# dataclass for Sensor Data
+# Dataclass for Sensor Data
 @dataclass
 class SensorsAvailable:
     temp1: float
@@ -67,8 +60,8 @@ class SensorsAvailable:
     temp3: float
 
 
-# generate random temperature
-def generate_random_temperatures():
+# Generate random temperature data
+def generate_random_temperatures() -> SensorsAvailable:
     return SensorsAvailable(
         temp1=random.uniform(-100, 120),
         temp2=random.uniform(-50, 100),
@@ -76,8 +69,8 @@ def generate_random_temperatures():
     )
 
 
-# GUI
-def gui():
+# GUI for displaying sensor data
+def gui(update_interval: float = 2.0) -> None:
     if not glfw.init():
         print("Failed to initialize GLFW")
         return
@@ -93,7 +86,6 @@ def gui():
     impl = GlfwRenderer(window)
 
     last_update_time = time.time()
-    update_interval = 2.0
     sensor_data = generate_random_temperatures()
 
     while not glfw.window_should_close(window):
@@ -132,7 +124,35 @@ def gui():
     glfw.terminate()
 
 
-if __name__ == "__main__":
+# CLI using argparse
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Temperature Sensor Data Display")
+    parser.add_argument(
+        "--interval", type=float, default=1.5.0, help="Update interval for sensor data"
+    )
+    return parser.parse_args()
+
+
+# Enum for Status
+class Status(Enum):
+    PENDING = "ZERO"
+    IN_PROGRESS = "ONE"
+
+
+# Main function
+def main() -> None:
+    args = parse_args()
+
+    user = User(id=1, name="Hemanth", email="hsk@gmail.com")
+    newuser = UserProfile(
+        username="Hemanth",
+        age=21,
+        salary=1000,
+        email="user@example.com",
+        gitwebsite="https://e.com",
+        bio="IoT Python developer",
+        profile_picture="https://github.com/hemanthxai/TechnoCulture-Research/",
+    )
 
     print("User: ")
     print(user)
@@ -144,17 +164,16 @@ if __name__ == "__main__":
     print("\nSerialized JSON:")
     print(user_json)
 
-    from enum import Enum
-
-    class Status(Enum):
-        PENDING = "ZERO"
-        IN_PROGRESS = "ONE"
-
+    # Enum usage
     status_pending = Status.PENDING
     status_in_progress = Status.IN_PROGRESS
     print("Tasks:")
     print("Tasks pending: ", status_pending.value)
     print("Tasks in progress: ", status_in_progress.value)
 
-    # run GUI
-    gui()
+    # Run GUI with update interval from CLI
+    gui(update_interval=args.interval)
+
+
+if __name__ == "__main__":
+    main()
