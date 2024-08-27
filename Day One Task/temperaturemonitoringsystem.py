@@ -75,7 +75,7 @@ def gui(update_interval: float = 2.0) -> None:
         print("Failed to initialize GLFW")
         return
 
-    window = glfw.create_window(940, 900, "Temperature Sensor Data", None, None)
+    window = glfw.create_window(700, 800, "Temperature Sensor Data", None, None)
     if not window:
         print("Failed to create GLFW window")
         glfw.terminate()
@@ -128,7 +128,7 @@ def gui(update_interval: float = 2.0) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Temperature Sensor Data Display")
     parser.add_argument(
-        "--interval", type=float, default=1.5.0, help="Update interval for sensor data"
+        "--interval", type=float, default=1.5, help="Update interval for sensor data"
     )
     return parser.parse_args()
 
