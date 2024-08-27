@@ -1,0 +1,6 @@
+[tool.mypy]
+files = ["src"]
+strict = true
+
+[tool.ruff]
+target_version = "py310"
