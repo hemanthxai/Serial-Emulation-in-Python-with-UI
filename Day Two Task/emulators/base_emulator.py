@@ -1,6 +1,6 @@
 import threading
 import queue
-from protobuf_definitions import DeviceCommand, DeviceResponse
+from protobuf_definitions.device_pb2 import DeviceCommand, DeviceResponse
 
 
 class BaseEmulator(threading.Thread):
