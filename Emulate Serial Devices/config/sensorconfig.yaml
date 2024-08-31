@@ -1,0 +1,16 @@
+sensors:
+  temperature:
+    type: "Temperature"
+    min_value: 15
+    max_value: 30
+    unit: "°C"
+  pressure:
+    type: "Pressure"
+    min_value: 950
+    max_value: 1050
+    unit: "hPa"
+  water_level:
+    type: "Water Level"
+    min_value: 1
+    max_value: 10
+    unit: "meters"

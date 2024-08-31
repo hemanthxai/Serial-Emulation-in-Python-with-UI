@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message SensorData {
+    string sensor_type = 1; // e.g., "Temperature", "Pressure", "Water Level"
+    int32 value = 2;        // e.g., 25 (for 25°C)
+}
+
+service SensorService {
+    rpc GetSensorData (Empty) returns (SensorData);
+}
+
+message Empty {}
