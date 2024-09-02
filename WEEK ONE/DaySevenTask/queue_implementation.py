@@ -20,19 +20,22 @@ def retrieve_value():
     print(sensor_queue.pop())
 
 
-print(sensor_queue)  # Queue is empty
+print(sensor_queue)
 
 temp()
 pres()
 temp()
 pres()
+# temp()
 
 
-print(sensor_queue)  # Added four sensor values
+print(sensor_queue)
 
-retrieve_value()  # Each retrieval of value is using pop
 retrieve_value()
 retrieve_value()
+# retrieve_value()
+# retrieve_value()
+# retrieve_value()
 
 
-print(sensor_queue)  # One value is left since it didnt use pop
+print(sensor_queue)
