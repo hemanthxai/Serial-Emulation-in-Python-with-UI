@@ -9,4 +9,4 @@ pip install imgui[glfw]
 pip install pytest
 
 
-Note: Using WSL (Windows Subsystem for Linux) with Python 3.7.4 installed via pyenv. This version of Python ensures proper functionality for libraries like pyimgui and glfw, which require this specific version to work correctly.
+Note: Using WSL (Windows Subsystem for Linux) with Python 3.7.4 installed via pyenv and Socat 1.8.0.1. This version of Python ensures proper functionality for libraries like pyimgui and glfw, which require this specific version to work correctly.
