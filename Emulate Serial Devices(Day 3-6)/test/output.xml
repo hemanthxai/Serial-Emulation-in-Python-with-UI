@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.9.12 on win32)" generated="2024-09-02T17:24:06.109102" rpa="false" schemaversion="5">
+<suite id="s1" name="Serial Integration Tests" source="C:\Users\heman\Desktop\GIT\NEW GIT\TechnoCulture-Research\WEEK ONE\Emulate Serial Devices(Day 3-6)\test\serial_integration_tests.robot">
+<kw name="Start Application" type="SETUP">
+<kw name="Start Process" owner="Process">
+<msg time="2024-09-02T17:24:06.156385" level="INFO">Starting process:
+python main.py</msg>
+<arg>${COMMAND}</arg>
+<arg>${SCRIPT}</arg>
+<doc>Starts a new process on background.</doc>
+<status status="PASS" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<doc>Start the ImGui application.</doc>
+<status status="PASS" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<test id="s1-t1" name="Test Sensor Value Updates" line="14">
+<kw name="Call Method" owner="BuiltIn">
+<msg time="2024-09-02T17:24:06.156385" level="FAIL">str object does not have method 'Temperature'.</msg>
+<arg>update_sensor_value</arg>
+<arg>Temperature</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="FAIL" start="2024-09-02T17:24:06.156385" elapsed="0.000000">str object does not have method 'Temperature'.</status>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${temp_val}</var>
+<arg>${sensor_values["Temperature"]} != "0°C"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${temp_val}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>update_sensor_value</arg>
+<arg>Pressure</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${press_val}</var>
+<arg>${sensor_values["Pressure"]} != "0 hPa"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${press_val}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>update_sensor_value</arg>
+<arg>Water Level</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${water_val}</var>
+<arg>${sensor_values["Water Level"]} != "0 meters"</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${water_val}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.156385" elapsed="0.000000"/>
+</kw>
+<doc>Verify that sensor values are updated correctly.</doc>
+<status status="FAIL" start="2024-09-02T17:24:06.156385" elapsed="0.000000">str object does not have method 'Temperature'.</status>
+</test>
+<test id="s1-t2" name="Test Generate All Sensors" line="28">
+<kw name="Run Process" owner="Process">
+<msg time="2024-09-02T17:24:06.172750" level="INFO">Starting process:
+python -c "from main import generate_all_thread; generate_all_thread()"</msg>
+<msg time="2024-09-02T17:24:06.177672" level="INFO">Waiting for process to complete.</msg>
+<msg time="2024-09-02T17:24:06.254671" level="INFO">Process completed.</msg>
+<arg>python</arg>
+<arg>-c</arg>
+<arg>from main import generate_all_thread; generate_all_thread()</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2024-09-02T17:24:06.172750" elapsed="0.081921"/>
+</kw>
+<kw name="Get Output">
+<msg time="2024-09-02T17:24:06.256080" level="FAIL">No keyword with name 'Get Output' found.</msg>
+<var>${output_text}</var>
+<arg>result</arg>
+<status status="FAIL" start="2024-09-02T17:24:06.256080" elapsed="0.000000">No keyword with name 'Get Output' found.</status>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${output_text}</arg>
+<arg>Temperature updated to</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.256080" elapsed="0.000000"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${output_text}</arg>
+<arg>Pressure updated to</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.256080" elapsed="0.001000"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${output_text}</arg>
+<arg>Water Level updated to</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" start="2024-09-02T17:24:06.257080" elapsed="0.000000"/>
+</kw>
+<doc>Test the 'Generate All' functionality.</doc>
+<status status="FAIL" start="2024-09-02T17:24:06.172025" elapsed="0.085055">No keyword with name 'Get Output' found.</status>
+</test>
+<kw name="Terminate Application" type="TEARDOWN">
+<kw name="Terminate All Processes" owner="Process">
+<doc>Terminates all still running processes started by this library.</doc>
+<status status="PASS" start="2024-09-02T17:24:06.258910" elapsed="0.000000"/>
+</kw>
+<doc>Terminate the ImGui application.</doc>
+<status status="PASS" start="2024-09-02T17:24:06.258910" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-09-02T17:24:06.109102" elapsed="0.149808"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="2" skip="0" id="s1" name="Serial Integration Tests">Serial Integration Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

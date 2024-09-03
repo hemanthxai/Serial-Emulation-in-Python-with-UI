@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message DeviceCommand {
+  string command = 1;
+}
+
+message DeviceResponse {
+  string response = 1;
+}

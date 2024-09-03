@@ -1,0 +1,27 @@
+serial:
+  ports:
+    temperature: "/dev/pts/8"
+    pressure: "/dev/pts/11"
+    water_level: "/dev/pts/12"
+  baudrate: 9600
+  timeout: 1
+  delay: 2  
+
+sensors:
+  temperature:
+    type: "Temperature"
+    min_value: 15
+    max_value: 30
+    unit: "°C"
+  
+  pressure:
+    type: "Pressure"
+    min_value: 1000
+    max_value: 1040
+    unit: "hPa"
+  
+  water_level:
+    type: "Water Level"
+    min_value: 0
+    max_value: 20
+    unit: "meters"
